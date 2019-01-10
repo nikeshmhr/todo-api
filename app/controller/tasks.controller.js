@@ -10,8 +10,13 @@ module.exports = {
 };
 
 
+/**
+** Todays task sorted using order property
+*/
 function getTasks(req, res) {
-    Task.find({}, function(err, data) {
+    var query = Task.find({})
+                .sort({order: 'asc'});
+    query.exec(function(err, data) {
         if(err)
             res.send(err);
         res.json(data);
