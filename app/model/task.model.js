@@ -25,6 +25,10 @@ var TaskSchema = new Schema({
             enum: ['high', 'medium', 'low']
         }],
         default: ['medium']
+    },
+    order: {    // Lowest number appears above than highest
+        type: Number,
+        default: 1000
     }
 });
 
