@@ -4,7 +4,7 @@ const constants = Object.freeze({
     DB_PROPS: {
         HOST: 'localhost',
         DB_NAME: 'mytodo',
-        getConnectionString: function() {
+        getConnectionString: function () {
             return 'mongodb://' + this.HOST + '/' + this.DB_NAME;
         }
     },

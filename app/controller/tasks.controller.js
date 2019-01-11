@@ -1,8 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var model = require('../model/task.model');
-var Task = mongoose.model('Tasks');
+var Task = require('../model/task.model');
 
 module.exports = {
     getTasks: getTasks,
@@ -11,13 +9,13 @@ module.exports = {
 
 
 /**
-** Todays task sorted using order property
-*/
+ ** Todays task sorted using order property
+ */
 function getTasks(req, res) {
     var query = Task.find({})
-                .sort({order: 'asc'});
-    query.exec(function(err, data) {
-        if(err)
+        .sort({order: 'asc'});
+    query.exec(function (err, data) {
+        if (err)
             res.send(err);
         res.json(data);
     });
@@ -25,8 +23,8 @@ function getTasks(req, res) {
 
 function createTask(req, res) {
     var t = new Task(req.body);
-    t.save(function(err, task) {
-        if(err)
+    t.save(function (err, task) {
+        if (err)
             res.send(err);
         res.json(task);
     });
