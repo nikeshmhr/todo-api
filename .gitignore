@@ -81,3 +81,6 @@ typings/
 
 # Package lock file
 package-lock.json
+
+# Ignore idea
+.idea/
