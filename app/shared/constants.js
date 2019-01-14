@@ -12,6 +12,18 @@ const constants = Object.freeze({
         TASKS: '/tasks',
         TASK_BY_ID: '/tasks/:taskId',
         TASK_SEARCH: '/tasks/search'    // ?date='', status='', priority=''
+    },
+    RESPONSE_MESSAGE_FORMAT: {  // Will be used as template for every response
+        status: '',
+        message: '',
+        data: ''
+    },
+    RESPONSE_TYPES: {
+        ERROR: 'error',
+        SUCCESS: 'success'
+    },
+    TASKS: {
+        ADDED_SUCCESSFULLY: 'Tasks added successfully.'
     }
 });
 
