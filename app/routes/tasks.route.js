@@ -10,5 +10,6 @@ module.exports = function (app) {
         .post(tasksController.createTask);
 
     app.route(c.ENDPOINTS.TASK_BY_ID)
-        .delete(tasksController.deleteTask);
+        .delete(tasksController.deleteTask)
+        .put(tasksController.updateTask);
 };

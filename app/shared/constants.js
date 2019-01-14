@@ -23,7 +23,9 @@ const constants = Object.freeze({
         SUCCESS: 'success'
     },
     TASKS: {
-        ADDED_SUCCESSFULLY: 'Tasks added successfully.'
+        ADDED_SUCCESSFULLY: 'Tasks added successfully.',
+        DELETED_SUCCESSFULLY: 'Task for task id #taskId deleted successfully.',
+        UPDATED_SUCCESSFULLY: 'Task for task id #taskId updated successfully.'
     }
 });
 
