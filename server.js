@@ -10,7 +10,13 @@ const app = express();
 
 // make mongoose use global Promise
 mongoose.Promise = global.Promise;
-mongoose.connect(constants.DB_PROPS.getConnectionString(), {useNewUrlParser: true});
+mongoose.connect(constants.DB_PROPS.getConnectionString(), {useNewUrlParser: true})
+    .then(function() {
+        console.info('Database connection successful');
+    }).catch(function(err) {
+        console.error('Database connection error', err);
+    }
+);
 
 // We use bodyParser to make request data available in req.body
 app.use(bodyParser.urlencoded({extended: true}));
