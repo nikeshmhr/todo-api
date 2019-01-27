@@ -3,27 +3,38 @@
 var Task = require('../model/task.model');
 var Utility = require('../shared/utility');
 var C = require('../shared/constants');
+var TaskUtil = require('../shared/task-utility');
 
 module.exports = {
     getTasks: getTasks,
     createTask: createTask,
     deleteTask: deleteTask,
 	updateTask: updateTask,
-	getTaskById: getTaskById
+    getTaskById: getTaskById,
+    getTasksByStatus: getTasksByStatus
 };
 
 
 /**
- ** Tasks sorted using order property
+ ** Tasks grouped by status and sorted using order property
  */
 function getTasks(req, res) {
-    var query = Task.find({})
-        .sort({order: 'asc'});
-    query.exec(function(err, data) {
+    var query = Task.find({});
+    query.lean().exec(function(err, data) {
         if(err)
             res.json(Utility.prepareErrorResponse(err));
 
-        res.json(Utility.decorateResponse(Utility.prepareSuccessResponse('', data), {count: data.length}));
+        var dataCount = data.length;
+        // Group results by status
+        var groupedByStatus = TaskUtil.groupByStatus(data);
+
+        try {
+            TaskUtil.setOrderableProperty(groupedByStatus);
+        } catch(err) {
+            console.log(err);
+        }
+
+        res.json(Utility.decorateResponse(Utility.prepareSuccessResponse('', groupedByStatus), {count: dataCount}));
     });
 }
 
@@ -62,4 +73,21 @@ function getTaskById(req, res) {
 
 		res.json(Utility.prepareSuccessResponse('', data));
 	});
+}
+
+function getTasksByStatus(req, res) {
+    var query = Task.find({status: [req.params.status]});
+    query.lean().exec(function(err, data) {
+        if(err)
+            res.json(Utility.prepareErrorResponse(err));
+
+        // Group results by priority
+        var groupByPriority = TaskUtil.groupByPriority(data);
+        try{
+            TaskUtil.setOrderableProperty(groupByPriority);
+        } catch(err) {
+            console.log(err);
+        }
+        res.json(Utility.decorateResponse(Utility.prepareSuccessResponse('', groupByPriority), {count: data.length}));
+    });
 }

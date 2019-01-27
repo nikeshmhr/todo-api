@@ -7,7 +7,8 @@ module.exports = {
     prepareErrorResponse: prepareErrorResponse,
     prepareJsonResponse: prepareJsonResponse,
     isEmpty: isEmpty,
-    decorateResponse: decorateResponse
+    decorateResponse: decorateResponse,
+    hasArrayValues: hasArrayValues
 };
 
 
@@ -49,8 +50,8 @@ function prepareJsonResponse(errorType, message, data) {
 }
 
 /**
- * Decorates given response with the additional properties. The function updates existing object.
- * @param response
+ * (MUTATES) Decorates given response with the additional properties. The function updates existing object.
+ * @param response The response object to decorate (This object will be mutated)
  * @param decorators Object that will be used to decorate existing response
  */
 function decorateResponse(response, decorators) {
@@ -61,4 +62,8 @@ function decorateResponse(response, decorators) {
     Object.assign(response, decorators);
 
     return response;
+}
+
+function hasArrayValues(item) {
+    return Array.isArray(item);
 }

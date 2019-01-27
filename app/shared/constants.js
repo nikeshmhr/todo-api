@@ -11,7 +11,8 @@ const constants = Object.freeze({
     ENDPOINTS: {
         TASKS: '/tasks',
         TASK_BY_ID: '/tasks/:taskId',
-        TASK_SEARCH: '/tasks/search'    // ?date='', status='', priority=''
+        TASK_SEARCH: '/tasks/search',    // ?date='', status='', priority=''
+        TASKS_BY_STATUS: '/tasks/status/:status'
     },
     RESPONSE_MESSAGE_FORMAT: {  // Will be used as template for every response
         status: '',

@@ -13,4 +13,7 @@ module.exports = function (app) {
         .get(tasksController.getTaskById)
         .delete(tasksController.deleteTask)
         .put(tasksController.updateTask);
+
+    app.route(c.ENDPOINTS.TASKS_BY_STATUS)
+        .get(tasksController.getTasksByStatus);
 };
