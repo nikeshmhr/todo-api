@@ -8,7 +8,8 @@ module.exports = {
     getTasks: getTasks,
     createTask: createTask,
     deleteTask: deleteTask,
-    updateTask: updateTask
+	updateTask: updateTask,
+	getTaskById: getTaskById
 };
 
 
@@ -53,4 +54,12 @@ function updateTask(req, res) {
 
         res.json(Utility.prepareSuccessResponse(C.TASKS.UPDATED_SUCCESSFULLY.replace('#taskId', req.params.taskId), data));
     });
+}
+
+function getTaskById(req, res) {
+	Task.findOne({_id: req.params.taskId}, function(err, data) {
+		if(err) return res.json(Utility.prepareErrorResponse(err));
+
+		res.json(Utility.prepareSuccessResponse('', data));
+	});
 }
