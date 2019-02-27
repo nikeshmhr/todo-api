@@ -16,4 +16,7 @@ module.exports = function (app) {
 
     app.route(c.ENDPOINTS.TASKS_BY_STATUS)
         .get(tasksController.getTasksByStatus);
+
+    app.route(c.ENDPOINTS.TASK_ORDER)
+        .post(tasksController.orderTask);
 };

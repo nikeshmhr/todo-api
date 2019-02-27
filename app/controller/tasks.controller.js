@@ -11,7 +11,8 @@ module.exports = {
     deleteTask: deleteTask,
 	updateTask: updateTask,
     getTaskById: getTaskById,
-    getTasksByStatus: getTasksByStatus
+	getTasksByStatus: getTasksByStatus,
+	orderTask: orderTask
 };
 
 
@@ -90,4 +91,47 @@ function getTasksByStatus(req, res) {
         }
         res.json(Utility.decorateResponse(Utility.prepareSuccessResponse('', groupByPriority), {count: data.length}));
     });
+}
+
+function orderTask(req, res) {
+	if(!Utility.isEmpty(req.body.order)) {
+		var orderValue = req.body.order.trim().toLowerCase();
+		if(C.TASK_ORDER.indexOf(orderValue) === -1) {
+			res.json(Utility.prepareErrorResponse(new Error(`Invalid value for order property. Must be from [up, down] but got ${orderValue}`)));
+		} else {
+			(orderValue === C.TASK_ORDER[0]) ? orderUp(req, res) : orderDown(req, res);
+		}
+	} else {
+		res.json(Utility.prepareErrorResponse(new Error('Order property value is required.')));
+	}
+}
+
+/**
+ * Orders the given task higher than current value in the list. (Up)=> comes first
+ */
+function orderUp(req, res) {
+	Task.findOne({_id: req.params.taskId}, function(err, data) {
+		if(err) return res.json(Utility.prepareErrorResponse(`Error 'orderUp' ${err}`));
+
+		req.body = {order: --data.order || 1};
+
+		console.log(`Ordering up task with data ${JSON.stringify(req.body)}`);
+
+		updateTask(req, res);
+	});
+}
+
+/**
+ * Orders the given task lower than current value in the list. (Down)=> comes later
+ */
+function orderDown(req, res) {
+	Task.findOne({_id: req.params.taskId}, function(err, data) {
+		if(err) return res.json(Utility.prepareErrorResponse(`Error 'orderDown' ${err}`));
+
+		req.body = {order: ++data.order};
+
+		console.log(`Ordering down task with data ${JSON.stringify(req.body)}`);
+
+		updateTask(req, res);
+	});
 }

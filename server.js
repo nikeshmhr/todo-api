@@ -22,6 +22,12 @@ mongoose.connect(constants.DB_PROPS.getConnectionString(), {useNewUrlParser: tru
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+// Allow Cross Origin Resource Sharing
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    next();
+});
+
 /*
 **  START: Middleware
 */

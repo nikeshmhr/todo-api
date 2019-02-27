@@ -12,7 +12,8 @@ const constants = Object.freeze({
         TASKS: '/tasks',
         TASK_BY_ID: '/tasks/:taskId',
         TASK_SEARCH: '/tasks/search',    // ?date='', status='', priority=''
-        TASKS_BY_STATUS: '/tasks/status/:status'
+        TASKS_BY_STATUS: '/tasks/status/:status',
+        TASK_ORDER: '/tasks/:taskId/order'
     },
     RESPONSE_MESSAGE_FORMAT: {  // Will be used as template for every response
         status: '',
@@ -27,7 +28,8 @@ const constants = Object.freeze({
         ADDED_SUCCESSFULLY: 'Tasks added successfully.',
         DELETED_SUCCESSFULLY: 'Task for task id #taskId deleted successfully.',
         UPDATED_SUCCESSFULLY: 'Task for task id #taskId updated successfully.'
-    }
+    },
+    TASK_ORDER: ['up', 'down']  // Possible values for operations on task order
 });
 
 module.exports = constants;

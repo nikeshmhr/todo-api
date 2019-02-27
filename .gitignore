@@ -84,3 +84,5 @@ package-lock.json
 
 # Ignore idea
 .idea/
+
+.vscode/
