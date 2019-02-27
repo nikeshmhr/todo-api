@@ -13,7 +13,8 @@ const constants = Object.freeze({
         TASK_BY_ID: '/tasks/:taskId',
         TASK_SEARCH: '/tasks/search',    // ?date='', status='', priority=''
         TASKS_BY_STATUS: '/tasks/status/:status',
-        TASK_ORDER: '/tasks/:taskId/order'
+        TASK_ORDER: '/tasks/:taskId/order',
+        TASK_COUNT: '/tasks/tcount/all'
     },
     RESPONSE_MESSAGE_FORMAT: {  // Will be used as template for every response
         status: '',

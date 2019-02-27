@@ -12,7 +12,8 @@ module.exports = {
 	updateTask: updateTask,
     getTaskById: getTaskById,
 	getTasksByStatus: getTasksByStatus,
-	orderTask: orderTask
+    orderTask: orderTask,
+    getTaskCount: getTaskCount
 };
 
 
@@ -134,4 +135,35 @@ function orderDown(req, res) {
 
 		updateTask(req, res);
 	});
+}
+
+/**
+ * Returns the number of records in each category (pending, ongoing, completed)
+ */
+function getTaskCount(req, res) {
+    var taskCount= {
+        pending: 0,
+        ongoing: 0,
+        completed: 0
+    };
+    var query = Task.find({status: ['pending']});
+    query.lean().exec(function(err, data) {
+        if(err)
+            res.json(Utility.prepareErrorResponse(err));
+
+        taskCount.pending = data.length;
+        Task.find({status: ['ongoing']}).lean().exec(function(err, data) {
+            if(err)
+                res.json(Utility.prepareErrorResponse(err));
+            
+            taskCount.ongoing = data.length;
+            Task.find({status: ['completed']}).lean().exec(function(err, data) {
+                if(err)
+                    res.json(Utility.prepareErrorResponse(err));
+                
+                taskCount.completed = data.length;
+                res.json(Utility.prepareSuccessResponse('', taskCount));
+            });
+        });
+    });
 }

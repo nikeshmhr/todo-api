@@ -19,4 +19,7 @@ module.exports = function (app) {
 
     app.route(c.ENDPOINTS.TASK_ORDER)
         .post(tasksController.orderTask);
+
+    app.route(c.ENDPOINTS.TASK_COUNT)
+        .get(tasksController.getTaskCount);
 };
