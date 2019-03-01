@@ -4,7 +4,8 @@ const constants = require('./app/shared/constants'),
     express = require('express'),
     port = process.env.PORT || 9999,
     mongoose = require('mongoose'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    cors = require('cors');
 
 const app = express();
 
@@ -23,10 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Allow Cross Origin Resource Sharing
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    next();
-});
+app.use(cors());
 
 /*
 **  START: Middleware
