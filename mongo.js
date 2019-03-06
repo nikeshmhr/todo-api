@@ -9,7 +9,7 @@ var env = process.env.NODE_ENV || "development";
 // Get the environment settings from config
 var config = require("./config/mongo")[env];
 
-console.log("config");
+console.log("config", config);
 
 module.exports = () => {
 	// Set the production MongoDB URL if
@@ -23,6 +23,7 @@ module.exports = () => {
 	// Set the connection URL
 	var mongoUrl = envUrl ? envUrl : localUrl;
 
+	console.log("connecting with url", mongoUrl);
 	// Connect!
 	return mongoose.connect(mongoUrl, { useNewUrlParser: true });
 };
