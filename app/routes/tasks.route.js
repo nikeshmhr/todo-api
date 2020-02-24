@@ -3,16 +3,16 @@
 const c = require('../shared/constants'),
     tasksController = require('../controller/tasks.controller');
 
-module.exports = function (app) {
+module.exports = function (app, checkJwt) {
 
     app.route(c.ENDPOINTS.TASKS)
         .get(tasksController.getTasks)
-        .post(tasksController.createTask);
+        .post(checkJwt, tasksController.createTask);
 
     app.route(c.ENDPOINTS.TASK_BY_ID)
         .get(tasksController.getTaskById)
         .delete(tasksController.deleteTask)
-        .put(tasksController.updateTask);
+        .put(checkJwt, tasksController.updateTask);
 
     app.route(c.ENDPOINTS.TASKS_BY_STATUS)
         .get(tasksController.getTasksByStatus);

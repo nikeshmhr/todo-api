@@ -41,6 +41,7 @@ function getTasks(req, res) {
 }
 
 function createTask(req, res) {
+    console.log('req', req.user.email);
     var t = new Task(req.body);
     t.save(function(err, task) {
         if(err)
